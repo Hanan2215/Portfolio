@@ -3,69 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netflix Data Analysis | Abdul Hanan</title>
+  <title>Netflix Data Analysis - Abdul Hanan</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-      color: #333;
+      font-family: 'Roboto', sans-serif;
+      background: url('../bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: black;
+      scroll-behavior: smooth;
+      position: relative;
+      z-index: 0;
     }
-    header {
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.55);
+      z-index: -1;
+    }
+
+ header {
       text-align: center;
-      background: navy;
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.6);
       color: white;
-      padding: 20px;
-      border-radius: 8px;
     }
-    section {
-      margin: 20px 0;
+
+    header img {
+      width: 300px;  /* Logo bigger */
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 0%; /* Rounded for nice look */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
+
+    header img {
+      width: 200px;
+      height: auto;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin: 0;
+    }
+
     footer {
-      text-align: center;
-      background: navy;
+      background-color: navy;
       color: white;
-      padding: 15px;
-      margin-top: 30px;
-      border-radius: 8px;
+      text-align: center;
+      padding: 20px 0;
     }
-    a {
-      color: navy;
-      text-decoration: none;
+
+    .chart-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 80px 0;
+      gap: 40px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-in-out;
     }
-    img {
-      margin: 10px;
-      border-radius: 6px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+
+    .chart-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chart-section:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .chart-text {
+      flex: 1;
+      min-width: 250px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 25px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 18px;
+      line-height: 1.6;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .chart-text:hover {
+      transform: translateY(-5px);
+    }
+
+    .chart-text h4 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #ffcc70;
+    }
+
+    .chart-img {
+      flex: 1.2;
+      min-width: 320px;
+      text-align: center;
+    }
+
+    .chart-img img {
+      max-width: 95%;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .chart-img img:hover {
+      transform: scale(1.07);
+      box-shadow: 0 10px 25px rgba(255, 64, 129, 0.6);
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Netflix Data Analysis Project</h1>
-  <p>Exploring trends in Netflix shows and movies using Python</p>
-</header>
+  <header>
+    <div class="logo-title">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo">
+      <h1></h1>
+    </div>
+    <h2>Data Analysis</h2>
+    <p class="tagline">Exploring trends in movies and shows on Netflix</p>
+  </header>
 
-<section>
-  <h2>📊 Project Overview</h2>
-  <p>This project analyzes the Netflix dataset, focusing on release trends, ratings, content categories, and durations.</p>
-</section>
+  <section id="overview" class="py-5">
+    <div class="container">
+      <h2 style="color:white;">Project Overview</h2>
+      <p style="color:white;">
+        This project analyzes the Netflix dataset (titles, directors, ratings, duration, etc.)
+        as a small-scale exercise to strengthen my skills in data visualization using Python.
+        Using pandas for data manipulation and matplotlib for charting, I explored aspects such as
+        content distribution, ratings, release trends, and country-wise production. 
+        This project focuses on transforming raw data into meaningful and visually clear representations.
+      </p>
+    </div>
+  </section>
 
-<section>
-  <h2>🖼 Visualizations</h2>
-  <img src="charts/top-countries.png" width="400">
-  <img src="charts/yearly-trends.png" width="400">
-</section>
+  <section id="analysis" class="py-5">
+    <div class="container">
+      <h2 style="color:white;">Analysis & Visualizations</h2>
+      
+      <!-- Chart 2 (First) -->
+      <div class="chart-section">
+        <div class="chart-text">
+          <h4>Comparison of Movies and TV Shows on Netflix</h4>
+          <p>
+            The bar chart shows that Netflix hosts significantly more movies than TV shows. 
+            While TV shows form a substantial portion of the catalog, movies clearly dominate the library.
+          </p>
+        </div>
+        <div class="chart-img">
+          <img src="charts/movie_vs_tvshows.png" alt="Movies vs TV Shows">
+        </div>
+      </div>
 
-<section>
-  <h2>📓 Jupyter Notebook</h2>
-  <p>View the full notebook <a href="notebook.html" target="_blank">here</a>.</p>
-</section>
+      <!-- Chart 5 (Second) -->
+      <div class="chart-section">
+        <div class="chart-text">
+          <h4>Netflix Content Ratings</h4>
+          <p>
+            The pie chart illustrates the distribution of Netflix content across different ratings. 
+            Categories like TV-MA and TV-14 represent the largest shares, showing Netflix’s focus on 
+            mature and teen audiences.
+          </p>
+        </div>
+        <div class="chart-img">
+          <img src="charts/rating_piechart.png" alt="rating pie chart">
+        </div>
+      </div>
 
-<footer>
-  <p>Back to <a href="../index.html" style="color:white;">Portfolio Home</a></p>
-</footer>
+      <!-- Chart 1 (Third) -->
+      <div class="chart-section">
+        <div class="chart-text">
+          <h4>Statistical Overview of Movie Lengths</h4>
+          <p>
+            Most movies are between 90 and 120 minutes long, with the peak around 100 minutes. 
+            This shows the industry’s standard length of ~1.5 hours, with outliers below 30 min 
+            or above 180 min being rare.
+          </p>
+        </div>
+        <div class="chart-img">
+          <img src="charts/Movie_Distribution_Histogram.png" alt="movie Distribution">
+        </div>
+      </div>
+
+      <!-- Chart 4 (Fourth - unchanged) -->
+      <div class="chart-section">
+        <div class="chart-text">
+          <h4>Trend of Netflix Content Releases Over Time</h4>
+          <p>
+            The scatter plot shows Netflix’s release trend. Both movies and TV shows rise 
+            significantly after 2015. TV shows show rapid growth recently, though 2022 appears 
+            incomplete due to partial data.
+          </p>
+        </div>
+        <div class="chart-img">
+          <img src="charts/Relese_vs_number_of_shows.png" alt="Release vs Shows">
+        </div>
+      </div>
+
+      <!-- Chart 3 (Fifth) -->
+      <div class="chart-section">
+        <div class="chart-text">
+          <h4>Top 10 Countries Producing Content on Netflix</h4>
+          <p>
+            The U.S. dominates Netflix content, followed by India and the UK. 
+            This shows Netflix’s heavy reliance on Hollywood productions but also 
+            significant contributions from international markets.
+          </p>
+        </div>
+        <div class="chart-img">
+          <img src="charts/Top_country_barh.png" alt="Country Distribution">
+        </div>
+      </div>
+
+      <!-- Chart 6 (Sixth - unchanged) -->
+      <div class="chart-section">
+        <div class="chart-text">
+          <h4>Movies vs TV Shows: Rating Distribution</h4>
+          <p>
+            Movies on Netflix are spread across TV-MA, TV-14, and R, showing a balance 
+            for varied audiences. TV shows, however, are concentrated in mature categories 
+            (TV-MA, TV-14), targeting older audiences.
+          </p>
+        </div>
+        <div class="chart-img">
+          <img src="charts/Comparsion_rating.png" alt="Release vs Shows">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="conclusion" class="py-5">
+    <div class="container">
+      <h2 style="color:white;">Conclusion</h2>
+      <p style="color:white;">
+        Netflix’s catalog is dominated by movies, typically 90–120 minutes long. 
+        The U.S. leads content production, followed by India and the UK. 
+        After 2015, releases grew sharply, especially TV shows. 
+        Movies are evenly distributed across ratings, while TV shows focus 
+        on mature audiences. This highlights Netflix’s dual strategy of 
+        mass variety with a strong push for mature content.
+      </p>
+   <section class="py-6">
+    <h2 style="color: aliceblue;">📓 Jupyter Notebook</h2>
+    <p style="background-color: aliceblue; padding-left: 10px;margin-right: 830px;">You can view the full notebook <a href="notebook/Netflix(EDA).html" target="_blank">here</a>.</p>
+  </section>
+      <a href="../index.html" class="btn btn-light mt-3">⬅ Back to Portfolio</a>
+    </div>
+  </section>
+
+
+  <footer>
+    <p>&copy; 2024 Abdul Hanan. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Scroll animation
+    const sections = document.querySelectorAll('.chart-section');
+    const revealOnScroll = () => {
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
 
 </body>
 </html>
